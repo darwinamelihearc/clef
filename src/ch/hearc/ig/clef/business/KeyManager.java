@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gère les opérations liées aux clés, telles que l'ajout, la recherche et la suppression.
- * Cette classe encapsule la liste des clés, offrant des méthodes pour interagir avec celle-ci.
+ * Gère les opérations liées aux clés, telles que l'ajout,
+ * la recherche et la suppression.
+ * Cette classe encapsule la liste des clés,
+ * offrant des méthodes pour interagir avec celle-ci.
  */
 public class KeyManager {
 
@@ -20,7 +22,7 @@ public class KeyManager {
      *
      * @param key  La clé à ajouter.
      */
-    public void addKey(Key key) {
+    public void addKey(final Key key) {
         keys.add(key);
     }
 
@@ -30,7 +32,7 @@ public class KeyManager {
      * @param keyValue  La valeur unique de la clé à rechercher.
      * @return La clé trouvée ou null si elle n'est pas présente dans la liste.
      */
-    public Key findKeyByKeyValue(String keyValue) {
+    public Key findKeyByKeyValue(final String keyValue) {
         for (Key key : keys) {
             if (key.getKeyValue().equals(keyValue)) {
                 return key;
@@ -41,15 +43,17 @@ public class KeyManager {
 
     /**
      * Supprime une clé de la liste en fonction de sa valeur.
-     * Si la clé n'est pas trouvée, une exception KeyNotFoundException est levée.
+     * Si la clé n'est pas trouvée, une exception
+     * KeyNotFoundException est levée.
      *
      * @param keyValue  La valeur unique de la clé à supprimer.
      * @throws KeyNotFoundException Si la clé n'est pas trouvée dans la liste.
      */
-    public void deleteKey(String keyValue) throws KeyNotFoundException {
+    public void deleteKey(final String keyValue) throws KeyNotFoundException {
         Key key = findKeyByKeyValue(keyValue);
         if (key == null) {
-            throw new KeyNotFoundException("Clé non trouvée lors de la suppression: " + keyValue);
+            throw new KeyNotFoundException(
+                    "Clé non trouvée lors de la suppression: " + keyValue);
         }
         keys.remove(key);
     }

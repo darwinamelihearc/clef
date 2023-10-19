@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class KeyTest {
 
-    private Key key;
+    public Key key;
 
     @Before
     public void setUp() {

@@ -16,12 +16,13 @@ public class Key {
     private String description;
 
     /**
-     * Construit une nouvelle instance de clé avec une valeur et une description spécifiées.
+     * Construit une nouvelle instance de clé avec une valeur
+     * et une description spécifiées.
      *
      * @param keyValue     La valeur unique de la clé.
      * @param description  La description associée à la clé.
      */
-    public Key(String keyValue, String description) {
+    public Key(final String keyValue, final String description) {
         this.keyValue = keyValue;
         this.description = description;
     }

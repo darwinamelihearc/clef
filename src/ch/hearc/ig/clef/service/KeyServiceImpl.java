@@ -9,7 +9,9 @@ import ch.hearc.ig.clef.business.KeyNotFoundException;
 
 /**
  * Implémentation du service de gestion des clés.
- * Cette classe réalise les opérations définies par l'interface {@link KeyService} en utilisant le gestionnaire {@link KeyManager}.
+ * Cette classe réalise les opérations définies
+ * par l'interface {@link KeyService} en utilisant
+ * le gestionnaire {@link KeyManager}.
  */
 public class KeyServiceImpl implements KeyService {
 
@@ -20,7 +22,7 @@ public class KeyServiceImpl implements KeyService {
      * {@inheritDoc}
      */
     @Override
-    public void addKey(String keyValue, String description) {
+    public void addKey(final String keyValue, final String description) {
         Key key = new Key(keyValue, description);
         keyManager.addKey(key);
     }
@@ -29,7 +31,8 @@ public class KeyServiceImpl implements KeyService {
      * {@inheritDoc}
      */
     @Override
-    public String getKeyDescription(String keyValue) throws KeyNotFoundException {
+    public String getKeyDescription(final String keyValue)
+            throws KeyNotFoundException {
         Key key = keyManager.findKeyByKeyValue(keyValue);
         if (key == null) {
             throw new KeyNotFoundException("Clé non trouvée: " + keyValue);
@@ -41,7 +44,7 @@ public class KeyServiceImpl implements KeyService {
      * {@inheritDoc}
      */
     @Override
-    public void deleteKey(String keyValue) throws KeyNotFoundException {
+    public void deleteKey(final String keyValue) throws KeyNotFoundException {
         keyManager.deleteKey(keyValue);
     }
 }
