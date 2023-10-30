@@ -4,6 +4,7 @@
 package ch.hearc.ig.clef.service;
 
 import ch.hearc.ig.clef.business.KeyNotFoundException;
+import ch.hearc.ig.clef.business.ValidationException;
 
 /**
  * Interface définissant les services relatifs à la gestion des clés.
@@ -17,8 +18,10 @@ public interface KeyService {
      *
      * @param keyValue     La valeur unique ou identifiant de la clé.
      * @param description  La description associée à la clé.
+     * @throws ValidationException Vérifie la valeur et la description
+     * avant d'ajouter la clé
      */
-    void addKey(String keyValue, String description);
+    void addKey(String keyValue, String description) throws ValidationException;
 
     /**
      * Récupère la description d'une clé en fonction de sa valeur.
