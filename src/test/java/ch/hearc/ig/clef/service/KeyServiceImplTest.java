@@ -1,8 +1,7 @@
 package ch.hearc.ig.clef.service;
 
 import ch.hearc.ig.clef.business.KeyNotFoundException;
-import ch.hearc.ig.clef.service.KeyService;
-import ch.hearc.ig.clef.service.KeyServiceImpl;
+import ch.hearc.ig.clef.business.ValidationException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +17,7 @@ public class KeyServiceImplTest {
     }
 
     @Test
-    public void addAndGetKeyDescription() throws KeyNotFoundException {
+    public void addAndGetKeyDescription() throws KeyNotFoundException, ValidationException {
         String keyValue = "TEST123";
         String description = "Description de test";
 
@@ -26,6 +25,22 @@ public class KeyServiceImplTest {
         String retrievedDescription = keyService.getKeyDescription(keyValue);
 
         assertEquals(description, retrievedDescription);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addTooBigKeyValue() throws ValidationException {
+        String keyValue = "TESTBIENTROPGRAND";
+        String description = "Description de test";
+
+        keyService.addKey(keyValue, description);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void addTooSmallKeyDescription() throws ValidationException {
+        String keyValue = "TEST123";
+        String description = "oups";
+
+        keyService.addKey(keyValue, description);
     }
 
     @Test(expected = KeyNotFoundException.class)
@@ -36,7 +51,11 @@ public class KeyServiceImplTest {
     @Test
     public void deleteKey() throws KeyNotFoundException {
         String keyValue = "DELETE123";
-        keyService.addKey(keyValue, "Description pour suppression");
+        try {
+            keyService.addKey(keyValue, "Description pour suppression");
+        } catch (ValidationException e) {
+            throw new RuntimeException(e);
+        }
         keyService.deleteKey(keyValue);
 
         // Vérifier que la clé est bien supprimée

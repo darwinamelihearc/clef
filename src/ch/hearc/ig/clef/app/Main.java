@@ -6,6 +6,7 @@ package ch.hearc.ig.clef.app;
 import ch.hearc.ig.clef.service.KeyService;
 import ch.hearc.ig.clef.service.KeyServiceImpl;
 import ch.hearc.ig.clef.business.KeyNotFoundException;
+import ch.hearc.ig.clef.business.ValidationException;
 
 /**
  * Point d'entrée principal de l'application Gestionnaire de Clés.
@@ -31,8 +32,18 @@ public class Main {
             // Tentative de récupération de la description
             // d'une clé non existante.
             System.out.println(keyService.getKeyDescription("NOTFOUND"));
+
+            // Tentative de création d'une clé avec une valeur trop longue
+            keyService.addKey("TEST2BEAUCOUPTROPLONG", "La description est très bien");
+
+            // Tentative de création d'une clé avec une description trop courte
+            keyService.addKey("TEST2", "oups");
+
         } catch (KeyNotFoundException e) {
             // Gestion des erreurs lorsqu'une clé n'est pas trouvée.
+            System.out.println("Erreur: " + e.getMessage());
+        } catch (ValidationException e) {
+            // Gestion des erreurs lorsqu'une clé n'est pas valide.
             System.out.println("Erreur: " + e.getMessage());
         }
     }

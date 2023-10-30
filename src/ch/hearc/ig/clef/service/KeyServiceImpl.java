@@ -6,6 +6,7 @@ package ch.hearc.ig.clef.service;
 import ch.hearc.ig.clef.business.Key;
 import ch.hearc.ig.clef.business.KeyManager;
 import ch.hearc.ig.clef.business.KeyNotFoundException;
+import ch.hearc.ig.clef.business.ValidationException;
 
 /**
  * Implémentation du service de gestion des clés.
@@ -22,7 +23,8 @@ public class KeyServiceImpl implements KeyService {
      * {@inheritDoc}
      */
     @Override
-    public void addKey(final String keyValue, final String description) {
+    public void addKey(final String keyValue, final String description) throws ValidationException {
+        validateKeyInput(keyValue, description);
         Key key = new Key(keyValue, description);
         keyManager.addKey(key);
     }
@@ -46,5 +48,15 @@ public class KeyServiceImpl implements KeyService {
     @Override
     public void deleteKey(final String keyValue) throws KeyNotFoundException {
         keyManager.deleteKey(keyValue);
+    }
+
+    private void validateKeyInput(String keyValue, String description) throws ValidationException {
+        if (keyValue == null || keyValue.length() < 3) {
+            throw new ValidationException("La valeur de la clé doit avoir au moins 3 caractères.");
+        }
+
+        if (description == null || description.length() < 5) {
+            throw new ValidationException("La description doit avoir au moins 5 caractères.");
+        }
     }
 }
